@@ -3,7 +3,7 @@ from datetime import date
 import os
 
 #Stocks that you want to download
-ticker = ["SPY", "GOOG", "MSFT", "TSLA"]
+ticker = ["SPY", "GOOG", "MSFT", "TSLA", "FB", "AAPL"]
 
 #Path to save file directory
 path = r'./Data/'
