@@ -7,15 +7,21 @@ from matplotlib import figure
 import matplotlib.pyplot as plt
 import os
 import config
+from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import Lasso
+from sklearn.linear_model import ElasticNet
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.svm import SVR
 #from Algorithms.LinearRegression import lr_fit_and_predict
 #from Algorithms.DecisionTree import tree_fit_and_predict
 
 #Remove once I get it working
 path = r'./Data/'
-future_days = 15
+future_days = 3
 ticker = ["SPY", "GOOG", "MSFT", "TSLA", "AAPL", "FB"]
 savepath = r'./Figures/'
-#Decimal representation of how much datat to use as test data
+#Decimal representation of how much data to use as test data
 test_percent = 0.2
 
 #Keep for later maybe
@@ -41,24 +47,207 @@ for i in ticker:
     #Create the feature data set (X) and convert to np array and remove 'x' rows/Days
     X = np.array(df.drop(['Prediction'], 1))[:-future_days]
 
-
     #create target data set (y) and convert to np array and get all of the target values except the last 'x' rows/Days
     y = np.array(df['Prediction'])[:-future_days]
     print(y)
 
-    #Split data into 75% train, 25% test_size
+    #Split data into (1-x)% train, x% test_size
     x_train, x_test, y_train, y_test = train_test_split(X, y, test_size = test_percent)
+
+    #-------------------------Create the model_selection
+
 
 
     #get last 'x' rows from feature datasets
-    x_future = df.drop(['Prediction'], 1)[:-future_days]
 
 
-    tree_fit_and_predict(x_train, y_train)
+    tree = DecisionTreeRegressor().fit(x_train, y_train)
+    lr = LinearRegression().fit(x_train, y_train)
 
-    lr_fit_and_predict(x_train, y_train)
+    #Possible bad due to youtube suggestion
+    #x_future = df.drop(['Prediction'], 1)[:-future_days]
+    x_future = df.drop(["Prediction"], 1)[-future_days:]
 
-    make_figure(df, i, savepath, save=True)
+    tree_prediction = tree.predict(x_future)
+    lr_prediction = lr.predict(x_future)
+
+#-------------------------------- Visualize the dataset
+
+
+    predictions = tree_prediction
+    predictions = lr_prediction
+    valid = df[X.shape[0]:]
+
+    valid['Predictions'] = predictions
+
+    plt.figure(figsize=(16,8))
+    plt.title('Model')
+    plt.xlabel('Days')
+    plt.ylabel('Close Price USD')
+    plt.plot(df['Close'])
+    plt.plot(valid[['Close', 'Predictions']])
+    plt.legend(['Original Price', 'Valid Data', 'Predicted Price'])
+    plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""
+
+    clf_tree = LinearRegression()
+    clf_tree.fit(x_test, y_test)
+
+
+    confidence = clf_tree.score(x_test, y_test)
+    print("Confidence: ", confidence)
+
+
+
+    forecast_prediction = clf_tree.predict(x_future)
+    print(forecast_prediction)
+
+
+
+        tree_fit_and_predict(x_train, y_train)
+
+        lr_fit_and_predict(x_train, y_train)
+
+        make_figure(df, i, savepath, save=True)
+
+
+
+
+    models = []
+    for i in models:
+
+    models.append((' LR ', LinearRegression()))
+    models.append((' KNN ', KNeighborsRegressor()))
+    models.append((' CART ', DecisionTreeRegressor()))
+    models.append((' SVR ', SVR()))
+
+
+
+
+
+    models = []
+    for i in models:
+
+    models.append((' LR ', LinearRegression()))
+    models.append((' KNN ', KNeighborsRegressor()))
+    models.append((' CART ', DecisionTreeRegressor()))
+    models.append((' SVR ', SVR()))
+
+    print(models)
+
+
+
+
+
+
+
+
+
+
+
+
+
+#------------------------------------------------
+
+
+
+
+
+
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+
+# evaluate each model in turn
+results = []
+names = []
+for name, model in models:
+    kfold = KFold(n_splits=num_folds, random_state=seed, shuffle=True)
+    cv_results = cross_val_score(model, x_train, y_train, cv=kfold, scoring=scoring)
+    # print(cv_results)
+    results.append(cv_results)
+    names.append(name)
+    msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
+    print(msg)
+
+
+
+
+from matplotlib import pyplot as plt
+from sklearn.metrics import mean_squared_error
+
+# Define model
+model = DecisionTreeRegressor()
+# Fit to model
+model.fit(x_train, y_train)
+# predict
+predictions = model.predict(X)
+print(mean_squared_error(y, predictions))
+
+# %matplotlib inline
+fig= plt.figure(figsize=(24,12))
+plt.plot(X, y)
+plt.plot(X,predictions)
+plt.show()
+
+#----------------------------------------------
 
 
 
@@ -164,13 +353,8 @@ def make_figure(df, i, savepath, save=True):
     plt.plot(df['Close'])
     if save:
         plt.savefig(savepath + i + '.png', format='png')
-
     #figure.clear()
     return
-
-
-
-make_and_save_figure(df, i, savepath)
 
 
 
@@ -191,35 +375,6 @@ make_and_save_figure(df, i, savepath)
 
     df = df[['Close']]
     df.head(6)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -341,13 +496,6 @@ def try_classifiers(data, features_list):
 
 
 
-
-
-
-
-
-
-"""
 import quandl
 import numpy as np
 from sklearn.linear_model import LinearRegression
