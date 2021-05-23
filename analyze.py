@@ -3,79 +3,115 @@ import pandas as pd
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
+from matplotlib import figure
 import matplotlib.pyplot as plt
+import os
 import config
+#from Algorithms.LinearRegression import lr_fit_and_predict
+#from Algorithms.DecisionTree import tree_fit_and_predict
 
+#Remove once I get it working
+path = r'./Data/'
+future_days = 15
+ticker = ["SPY", "GOOG", "MSFT", "TSLA", "AAPL", "FB"]
+savepath = r'./Figures/'
+#Decimal representation of how much datat to use as test data
+test_percent = 0.2
 
+#Keep for later maybe
 plt.style.use('bmh')
 
-df = pd.read_csv('./Data/SPY.csv')
-df.head(5)
 
-#get number of trading days
-df.shape
 
-#visualize close Price
-plt.figure(figsize=(16,8))
-plt.title('SPY')
-plt.xlabel('Days')
-plt.ylabel('Close Price USD')
-plt.plot(df['Close'])
-plt.show()
 
-df = df[['Close']]
-df.head(6)
 
-#predict x days into the future
 
-future_days = 25
 
-#create a new column (target) shifted x units/days up
+for i in ticker:
 
-df['Prediction'] = df[['Close']].shift(-future_days)
-df.head(4)
-df.tail(4)
+    #Load in the CSVs into a df for manipulation
+    df = pd.read_csv(path + i + '.csv')
 
-#Create the feature data set (X) and convert to np array and remove 'x' rows/Days
-X = np.array(df.drop(['Prediction'], 1))[:-future_days]
-print(X)
+    #temp df
+    df = pd.read_csv(path + "SPY.csv")
 
-#create target data set (y) and convert to np array and get all of the target values except the last 'x' rows/Days
+    #create a new column (target) shifted x units/days up
+    df['Prediction'] = df[['Close']].shift(-future_days)
 
-y = np.array(df['Prediction'])[:-future_days]
-print(y)
+    #Create the feature data set (X) and convert to np array and remove 'x' rows/Days
+    X = np.array(df.drop(['Prediction'], 1))[:-future_days]
 
-#Split data into 75% train, 25% test_size
 
-x_train, x_test, y_train, y_test = train_test_split(X, y, test_size = 0.25)
+    #create target data set (y) and convert to np array and get all of the target values except the last 'x' rows/Days
+    y = np.array(df['Prediction'])[:-future_days]
+    print(y)
+
+    #Split data into 75% train, 25% test_size
+    x_train, x_test, y_train, y_test = train_test_split(X, y, test_size = test_percent)
+
+
+    #get last 'x' rows from feature datasets
+    x_future = df.drop(['Prediction'], 1)[:-future_days]
+
+
+    tree_fit_and_predict(x_train, y_train)
+
+    lr_fit_and_predict(x_train, y_train)
+
+    make_figure(df, i, savepath, save=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#create linear regression model
+def lr_fit_and_predict(x_train, y_train):
+    lr = LinearRegression().fit(x_train, y_train)
+    lr_prediction = lr.predict(x_future)
+    print(lr_prediction)
+    return lr_prediction
+
+
+
+def tree_fit_and_predict(x_train, y_train):
+    tree = DecisionTreeRegressor().fit(x_train, y_train)
+    tree_prediction = tree.predict(x_future)
+    print(tree_prediction)
+    return tree_prediction
+
+
+#create training data from the CSVs
 
 #create the model_selection
 #create decision tree regressor models
-tree = DecisionTreeRegressor().fit(x_train, y_train)
-
-#create linear regression model
-
-lr = LinearRegression().fit(x_train, y_train)
-
-#get last 'x' rows from feature datasets
-x_future = df.drop(['Prediction'], 1)[:-future_days]
 
 #get the last 'x' rows of feature datasets
-
-x_future = x_future.tail(future_days)
 
 x_future = np.array(x_future)
 
 x_future
 
-#show the model tree Prediction
-tree_prediction = tree.predict(x_future)
-print(tree_prediction)
-
 print()
 #show mode lr Prediction
 
-lr_prediction = lr.predict(x_future)
+
 print(lr_prediction)
 
 #visualize the dataset
@@ -109,6 +145,126 @@ plt.plot(valid[['Close', 'Predictions']])
 plt.legend(['Original', 'Val', 'Pred'])
 
 plt.show()
+
+
+
+
+
+
+
+
+
+def make_figure(df, i, savepath, save=True):
+
+    #visualize close Price
+    plt.figure(figsize=(16,8))
+    plt.title(i)
+    plt.xlabel('Days')
+    plt.ylabel('Close Price USD')
+    plt.plot(df['Close'])
+    if save:
+        plt.savefig(savepath + i + '.png', format='png')
+
+    #figure.clear()
+    return
+
+
+
+make_and_save_figure(df, i, savepath)
+
+
+
+
+
+
+
+
+
+    return
+
+
+
+
+
+
+
+
+    df = df[['Close']]
+    df.head(6)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

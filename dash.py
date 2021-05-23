@@ -33,4 +33,5 @@ app.layout = html.Div([
 
     dcc.Graph(id='my_stock_data', figure={})
 
+
 ])
