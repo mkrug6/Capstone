@@ -5,7 +5,7 @@ from datetime import datetime
 ticker = ["SPY", "GOOG", "MSFT", "TSLA", "FB", "AAPL"]
 
 #How far back to gather data?
-year = 2015
+year = 2021
 month = 1
 day = 1
 
@@ -28,10 +28,8 @@ start = start.strftime("%Y-%m-%d")
 end = today.strftime("%Y-%m-%d")
 
 
-now = datetime.now()
-
-print(now)
+future = datetime.toordinal(today) + forecast_out
 
 
-
-
+print(datetime.toordinal(today))
+print(future)
