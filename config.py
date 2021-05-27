@@ -1,8 +1,37 @@
+from datetime import date
+from datetime import datetime
+
 #Stocks that you want to download
-ticker = ["SPY", "GOOG", "MSFT", "TSLA"]
+ticker = ["SPY", "GOOG", "MSFT", "TSLA", "FB", "AAPL"]
+
+#How far back to gather data?
+year = 2015
+month = 1
+day = 1
+
+#How many days out to predict 
+forecast_out = 10
 
 #Path to save file directory
-path = r'./Data/'
+save_path = r'home/mason/Capstone/Figures/'
 
-#How many days out to predict a Stocks
-forecast_out = 15
+#Path to data directory
+path = r'/home/mason/Capstone/Data/'
+
+
+#Sets start date for stock datetime
+today = date.today()
+start = date(year, month, day)
+start = start.strftime("%Y-%m-%d")
+
+#Sets end date for stock datetime
+end = today.strftime("%Y-%m-%d")
+
+
+now = datetime.now()
+
+print(now)
+
+
+
+
