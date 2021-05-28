@@ -61,7 +61,7 @@ def create_dependent(df_close_price):
 
 
 
-def future_array(forecast_out, today):
+def make_future_dates(forecast_out, today):
     f_list = list()
     t = datetime.toordinal(today)
     for i in range(t, t + forecast_out, 1):

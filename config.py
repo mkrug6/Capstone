@@ -5,12 +5,12 @@ from datetime import datetime
 ticker = ["SPY", "GOOG", "MSFT", "TSLA", "FB", "AAPL"]
 
 #How far back to gather data?
-year = 2021     #Dummy  value for testing
+year = 2018     #Dummy  value for testing
 month = 5       #Dummy  value for testing
 day = 1         #Dummy  value for testing
 
 #How many days out to predict 
-forecast_out = 10
+forecast_out = 1
 
 #Path to save file directory
 save_path = r'/home/mason/Capstone/Figures/'
@@ -30,3 +30,6 @@ end = today.strftime("%Y-%m-%d")
 
 future = datetime.toordinal(today) + forecast_out
 
+
+#List that will contain forecasted values
+prediction_list = list()
