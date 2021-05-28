@@ -10,10 +10,10 @@ month = 5       #Dummy  value for testing
 day = 1         #Dummy  value for testing
 
 #How many days out to predict 
-forecast_out = 1
+forecast_out = 10
 
 #Path to save file directory
-save_path = r'home/mason/Capstone/Figures/'
+save_path = r'/home/mason/Capstone/Figures/'
 
 #Path to data directory
 path = r'/home/mason/Capstone/Data/'

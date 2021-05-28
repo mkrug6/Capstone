@@ -1,6 +1,7 @@
 import sys
 sys.path.append("/home/mason/Capstone/")
 from config import *
+from svm import * #maybe remove
 from download import download_csv
 import pandas as pd
 import numpy as np
@@ -30,14 +31,12 @@ df_close_price = df.loc[:, 'Close']
 #-----------------------Create date data frame and create close price dataframe
 
 
-days = create_independent(days)
-
-
+days = create_independent()
 days = np.array(days)
 days = days.reshape(-1, 1)
 
 
-close_prices = create_dependent(close_prices)
+close_prices = create_dependent()
 
 
 #Creates the model that will train with out data
@@ -58,7 +57,15 @@ Good until here
 
 
 
-make_graph(days, close_prices, save=False)
+model_graph(days, close_prices, save=False)
+
+future_array()
+
+
+future_array = future_array(forecast_out)
+
+
+
 
 
 

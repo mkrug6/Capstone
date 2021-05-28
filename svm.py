@@ -32,7 +32,7 @@ def svm_model(days, close_price, scale=bool):
 
 
 
-def create_independent(days):
+def create_independent():
     # Create the independent and dependent variables as lists
     days = list()
     for i in range(0, len(df_days), 1):
@@ -48,7 +48,7 @@ def create_independent(days):
     return days
 
 
-def create_dependent(close_prices):
+def create_dependent():
    # Create dependent data set and store in list variable
    close_prices = list()
    for close_price in df_close_price:
@@ -57,6 +57,13 @@ def create_dependent(close_prices):
 
 
 
-create_dependent(close_price)
 
-
+def future_array(forecast_out):
+    f_list = list()
+    t = datetime.toordinal(today)
+    for i in range(t, t + forecast_out, 1):
+        t += 1
+        f_list.append(t)
+    future_array = np.array(f_list)
+    future_array = future_array.reshape(-1, 1)
+    return future_array
