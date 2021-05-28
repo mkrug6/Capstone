@@ -1,3 +1,6 @@
+from sklearn.svm import SVR
+from datetime import datetime
+import numpy as np
 # from config import *
 # from sklearn.preprocessing import MinMaxScaler
 # from sklearn.model_selection import train_test_split
@@ -9,7 +12,7 @@
 
 
 
-def svm_model(days, close_price, scale=bool):
+def svm_model(days, close_prices, scale=bool):
 
     # Create and train an SVR model using a RBF kernel
     rbf_svr = SVR(kernel='rbf', C=1000.0, gamma=0.15)
@@ -32,7 +35,7 @@ def svm_model(days, close_price, scale=bool):
 
 
 
-def create_independent():
+def create_independent(df_days):
     # Create the independent and dependent variables as lists
     days = list()
     for i in range(0, len(df_days), 1):
@@ -48,7 +51,7 @@ def create_independent():
     return days
 
 
-def create_dependent():
+def create_dependent(df_close_price):
    # Create dependent data set and store in list variable
    close_prices = list()
    for close_price in df_close_price:
@@ -58,10 +61,12 @@ def create_dependent():
 
 
 
-def future_array(forecast_out):
+def future_array(forecast_out, today):
     f_list = list()
     t = datetime.toordinal(today)
     for i in range(t, t + forecast_out, 1):
         t += 1
         f_list.append(t)
+    future_array = np.array(f_list)
+    future_array = future_array.reshape(-1, 1)
     return future_array
