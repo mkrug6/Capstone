@@ -64,6 +64,4 @@ def future_array(forecast_out):
     for i in range(t, t + forecast_out, 1):
         t += 1
         f_list.append(t)
-    future_array = np.array(f_list)
-    future_array = future_array.reshape(-1, 1)
     return future_array

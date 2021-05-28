@@ -39,13 +39,24 @@ days = days.reshape(-1, 1)
 close_prices = create_dependent()
 
 
-#Creates the model that will train with out data
+#Creates the model that will train with our data
 rbf_svr = svm_model(days, close_prices, scale=False)
 
 
 print(rbf_svr)
 
-Good until here
+
+#Create future array and make it a 2D array
+future_array = np.array(f_list)
+future_array = future_array.reshape(-1, 1)
+
+
+#Predict using just the future array
+future_prediction = rbf_svr.predict(future_array)
+
+
+model_graph(future_array, future_prediction)
+
 
 
 
@@ -54,26 +65,25 @@ Good until here
 #-------------------------Graphs the effectiveness of the model
 
 
+    future_array = np.array(f_list)
+    future_array = future_array.reshape(-1, 1)
 
 
 
 model_graph(days, close_prices, save=False)
 
-future_array()
 
 
-future_array = future_array(forecast_out)
-
-
-
-
-
-
+                    
+                    
+                    
+                    
+                    
 
 
 
 
-
+print(rbf_svr.predict(future_array))
 
 
 
@@ -87,22 +97,7 @@ future_array = future_array(forecast_out)
 
 
 
-
-days = create_independent() 
-
-
-
-
-
-
-
-print("Creating data structures...")
-
-
-
-
-
-def svm_model_predict(model, future):
+future):
     
     
     
@@ -110,12 +105,3 @@ def svm_model_predict(model, future):
     
     
     return something
-
-
-
-
-
-
-
-
-
