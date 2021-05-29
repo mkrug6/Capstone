@@ -9,11 +9,12 @@ import numpy as np
 #import matplotlib.pyplot as plt
 import datetime
 #from sklearn.svm import SVR maybe remove
-from plotter import model_graph, predict_graph
+from plot import model_graph, predict_graph
 from datetime import datetime
 
-for tick in ticker:
 
+for i in range(0, len(ticker), 1):
+    tick = ticker[i]
     print("Download CSV files to Data directory")
     download_csv(start, end, path, tick)
     
@@ -43,7 +44,7 @@ for tick in ticker:
     
     print("Generating fit chart for: %s" % tick) #make i reference the stock
     
-    model_graph(rbf_svr, days, close_prices, save=True, tick)
+    model_graph(rbf_svr, days, close_prices, tick, save=True)
     
     print("Generating prediction including future days")
     #Creating x value composed of days and future days
@@ -52,9 +53,11 @@ for tick in ticker:
     future_close_prices = rbf_svr.predict(future_array)
     all_close_prices = np.append(close_prices, future_close_prices)
     
-    predict_graph(days, close_prices, future_array, future_close_prices, all_days, all_close_prices, save=True, tick)
+    predict_graph(rbf_svr, days, close_prices, future_array, future_close_prices, all_days, all_close_prices, tick, save=True)
     
-    statement = print('The predicted price for %s is %f.' % (tick, future_close_prices[-1]))
-    prediction_list.append(statement)
+    
+    statement = 'The predicted price is ' + str(future_close_prices) + '.'
+    ticker_dict[tick] = statement
 
-print(prediction_list)
+for i in ticker:
+    print(i + ": " + ticker_dict[i])

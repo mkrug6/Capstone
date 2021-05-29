@@ -1,4 +1,8 @@
-def model_graph(days, close_prices, save=bool):
+import sys
+sys.path.append("/home/mason/Capstone/")
+import matplotlib.pyplot as plt
+
+def model_graph(rbf_svr, days, close_prices, tick, save=bool):
     # Graphs actual close prices against models predicted valeus    
     
     plt.figure(figsize=(32, 16))
@@ -9,12 +13,12 @@ def model_graph(days, close_prices, save=bool):
     plt.title('Support Vector Regression')
     #input a legend here plt.legend()
     if save:
-        print("Put save code here")
+        plt.savefig("./Capstone/Figures/Prediction_" + tick + '.png')
     return plt.show()
 
 
 
-def predict_graph(days, close_prices, save=bool):
+def predict_graph(rbf_svr, days, close_prices, future_array, future_close_prices, all_days, all_close_prices, tick, save=bool):
     # Graphs actual close prices against models predicted valeus    
     
     plt.figure(figsize=(32, 16))
@@ -25,5 +29,14 @@ def predict_graph(days, close_prices, save=bool):
     plt.title('Support Vector Regression')
     #input a legend here plt.legend()
     if save:
-        print("Put save code here")
+        plt.savefig("./Capstone/Figures/Prediction_" + tick + '.png')
     return plt.show()
+
+
+
+
+
+import os
+cwd = os.getcwd()
+
+print(cwd)
