@@ -44,7 +44,7 @@ for i in range(0, len(ticker), 1):
     
     print("Generating fit chart for: %s" % tick) #make i reference the stock
     
-    model_graph(rbf_svr, days, close_prices, tick, save=True)
+    model_graph(rbf_svr, days, close_prices, tick, save=True, show=False)
     
     print("Generating prediction including future days")
     #Creating x value composed of days and future days
@@ -53,7 +53,7 @@ for i in range(0, len(ticker), 1):
     future_close_prices = rbf_svr.predict(future_array)
     all_close_prices = np.append(close_prices, future_close_prices)
     
-    predict_graph(rbf_svr, days, close_prices, future_array, future_close_prices, all_days, all_close_prices, tick, save=True)
+    predict_graph(rbf_svr, days, close_prices, future_array, future_close_prices, all_days, all_close_prices, tick, save=True, show=False)
     
     
     statement = 'The predicted price is ' + str(future_close_prices) + '.'
