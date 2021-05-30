@@ -3,7 +3,7 @@ from datetime import datetime
 
 #Stocks that you want to download
 ticker = ["SPY", "GOOG", "MSFT", "TSLA", "FB", "AAPL",
-          "AMZN", "GOOGL", "BRK", "JPM", "JNJ", "V",
+          "AMZN", "GOOGL", "JPM", "JNJ", "V",
           "NVDA", "HD", "PG", "DIS", "BAC", "ADBE",
           "INTC", "VZ", "CSCO", "NFLX", "PFE", "KO",
           "T", "WMT"]
