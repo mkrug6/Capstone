@@ -10,6 +10,7 @@ import numpy as np
 import datetime
 #from sklearn.svm import SVR maybe remove
 from plot import model_graph, predict_graph
+from metrics import generate_metrics, average_deviation
 from datetime import datetime
 
 
@@ -22,6 +23,8 @@ for i in range(0, len(ticker), 1):
     df = pd.read_csv(path + tick + '.csv')
     
     print('Creating forecast df for ' + tick)
+    #Used in metrics.py
+    acp[ticker[i]] = df.iat[-1, 4]
     df = df.head(len(df)-forecast_out)
     df_days = df.loc[:, 'Date']
     df_close_price = df.loc[:, 'Close']   
@@ -58,6 +61,17 @@ for i in range(0, len(ticker), 1):
     
     statement = 'The predicted price is ' + str(future_close_prices) + '.'
     ticker_dict[tick] = statement
+    
+    metrics_dict[ticker[i]] = future_close_prices[0]
+    print()
 
-for i in ticker:
-    print(i + ": " + ticker_dict[i])
+
+generate_metrics(acp)
+
+average_deviation()
+
+
+
+
+
+

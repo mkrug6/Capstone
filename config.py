@@ -2,7 +2,11 @@ from datetime import date
 from datetime import datetime
 
 #Stocks that you want to download
-ticker = ["SPY", "GOOG", "MSFT", "TSLA", "FB", "AAPL"]
+ticker = ["SPY", "GOOG", "MSFT", "TSLA", "FB", "AAPL",
+          "AMZN", "GOOGL", "BRK", "JPM", "JNJ", "V",
+          "NVDA", "HD", "PG", "DIS", "BAC", "ADBE",
+          "INTC", "VZ", "CSCO", "NFLX", "PFE", "KO",
+          "T", "WMT"]
 
 #How far back to gather data?
 year = 2021     #Dummy  value for testing
@@ -15,7 +19,7 @@ forecast_out = 1
 
 #Path to data directory
 path = r'/home/mason/Capstone/Data/'
-
+save_path = 'r/home/mason/Capstone/Figures/'
 
 #Sets start date for stock datetime
 today = date.today()
@@ -31,3 +35,11 @@ future = datetime.toordinal(today) + forecast_out
 
 #List that will contain forecasted values
 ticker_dict = {}
+
+#Used to calculate performance metrics
+metrics_dict = {}
+#Actual close prices dict
+acp = {}
+
+
+deviation_dict = {}

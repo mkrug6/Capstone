@@ -1,14 +1,9 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Sat May 29 15:57:44 2021
+from config import ticker, metrics_dict, deviation_dict
 
-@author: mason
-"""
-def generate_metrics():
+def generate_metrics(acp):
     for i in range(0, len(ticker), 1):
         name = ticker[i]
-        x = actual_close_prices[name]
+        x = acp[name]
         y = metrics_dict[name]
         deviation = ((abs(x - y)) / x) * 100
         deviation = round(deviation, 2)

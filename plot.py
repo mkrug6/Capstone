@@ -13,7 +13,7 @@ def model_graph(rbf_svr, days, close_prices, tick, save=bool, show=bool):
     plt.title('Support Vector Regression')
     #input a legend here plt.legend()
     if save:
-        plt.savefig("./Figures/Prediction_" + tick + '.png')
+        plt.savefig("/home/mason/Capstone/Figures/Prediction_" + tick + '.png')
     if show:
         plt.show()
     return 
@@ -31,8 +31,9 @@ def predict_graph(rbf_svr, days, close_prices, future_array, future_close_prices
     plt.title('Support Vector Regression')
     #input a legend here plt.legend()
     if save:
-        plt.savefig("./Figures/Prediction_" + tick + '.png')
+        plt.savefig("/home/mason/Capstone/Figures/Prediction_" + tick + '.png')
     if show:
         plt.show()
     return
 
+#save_path = 'r/home/mason/Capstone/Figures/'
