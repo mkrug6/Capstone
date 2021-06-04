@@ -12,6 +12,9 @@ import datetime
 from plot import model_graph, predict_graph
 from metrics import generate_metrics, average_deviation
 from datetime import datetime
+import matplotlib.pyplot as plt
+import scipy.stats as stats
+import math
 
 
 for i in range(0, len(ticker), 1):
@@ -68,10 +71,4 @@ for i in range(0, len(ticker), 1):
 
 generate_metrics(acp)
 
-average_deviation()
-
-
-
-
-
-
+mu = average_deviation()

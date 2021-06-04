@@ -34,6 +34,7 @@ def predict_graph(rbf_svr, days, close_prices, future_array, future_close_prices
         plt.savefig("/home/mason/Capstone/Figures/Prediction_" + tick + '.png')
     if show:
         plt.show()
+    plt.close()
     return
 
 #save_path = 'r/home/mason/Capstone/Figures/'

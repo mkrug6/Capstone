@@ -9,9 +9,9 @@ ticker = ["SPY", "GOOG", "MSFT", "TSLA", "FB", "AAPL",
           "T", "WMT"]
 
 #How far back to gather data?
-year = 2021     #Dummy  value for testing
-month = 3       #Dummy  value for testing
-day = 1         #Dummy  value for testing
+year = 2021    
+month = 3      
+day = 1         
 
 #How many days out to predict 
 forecast_out = 1

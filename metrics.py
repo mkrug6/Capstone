@@ -5,7 +5,7 @@ def generate_metrics(acp):
         name = ticker[i]
         x = acp[name]
         y = metrics_dict[name]
-        deviation = ((abs(x - y)) / x) * 100
+        deviation = ((x - y) / x) * 100
         deviation = round(deviation, 2)
         deviation_dict[name] = deviation
         deviation = str(deviation)
